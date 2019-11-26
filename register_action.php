@@ -4,9 +4,6 @@ if (isset($_POST['register-submit'])){
     require 'dbh.php';
     
 
-// Create connection
-$conn = new mysqli($servername, $dbusername, $dbpassword, $databasename);
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
