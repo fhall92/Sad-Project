@@ -5,7 +5,6 @@
 if (isset($_POST['register-submit'])){
     require 'dbh.php';
     
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
