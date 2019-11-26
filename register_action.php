@@ -1,5 +1,5 @@
 <?php 
-
+//If user has accessed register_action.php via submit button on register.php
 if (isset($_POST['register-submit'])){
     require 'dbh.php';
     
@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
     //Empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
     if(empty($username) || empty($password) || empty($passwordConfirm)){
-        header("Location: ../sadproject/register.php?error=emptyfields&username=".$username);
+        header("Location: ../sadproject/register.php?error=emptyfields");
         exit();
     }
 
@@ -66,15 +66,23 @@ if ($conn->connect_error) {
                 }
 
                 else{
-
                     mysqli_stmt_bind_param($stmt, "ss", $username, $password);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
+                    header("Location: ../sadproject/register.php?registration=success");
+                    exit();
                 }
-
-
             }
         }
     }
 
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
+
+}
+
+//If user accesses page from outside of register.php, redirect to register.php
+else{
+    header("Location: ../sadproject/register.php");
+    exit();
 }

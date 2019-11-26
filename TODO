@@ -1,0 +1,45 @@
+TO-DO
+
+--------------------Registration (10%)---------------------------
+- Users registered to database [X]
+- Passwords salted and hashed []
+- Complexity Rules for Passwords []
+- Adequate error handling []
+
+-----------------------Login-------------------------------------
+--Unsuccessful Attempt (20%)--
+
+- Generic error message "The username X and password comibation cannot be authenticated" []
+- Username reflected in error message []
+- Reflected parameter not susceptible to XSS []
+- Lockout after 5 attempts for 3 minutes []
+
+--Successful Attempt (15%)--
+- System greets you by username []
+- Create active authenticated session []
+- Authenticated user may view 2 or more pages []
+- secure logout []
+- lockout aafter 10 mins inactivity []
+- Max session duration 1 hour []
+
+--------------- Password Change (15%) ---------------------------
+- Authenticated user can change password []
+- Complexity rules for password []
+- session expires on password change []
+- User needs to re-auth using new credentials to access []
+- Cross Site Request Forgery protection []
+- GET not POST []
+
+--------------Event Log & ADMIN user (10%)--------------------
+- All login attempts stored in login []
+- Log viewable by ADMIN only []
+
+--------------Testing-------------------------
+- Documentation []
+	- Implemented Functionality []
+	- Security Test Cases []
+	- Test Results []
+	
+NOTE: tests highlight what security feature you are assessing, 
+	  tests performed along with results.
+	
