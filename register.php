@@ -1,6 +1,7 @@
 
 <?php
 	require "header.php";
+	require "dbh.php";
 
 	//If user is already logged in, redirect to main_page
 	if(isset($_SESSION['id'])){

@@ -9,7 +9,6 @@ if (isset($_POST['register-submit'])){
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
     $username = $_POST['username'];
     $password = $_POST['password'];
     $passwordConfirm = $_POST['passwordConfirm'];
@@ -22,12 +21,6 @@ if ($conn->connect_error) {
         header("Location: ../sadproject/register.php?error=emptyfields");
         exit();
     }
-
-    //Only allow a-z, A-Z, 0-9 in username
-    //else if(!preg_match("/^[a-zA-Z0-9]*$/")){
-    //    header("Location: ../sadproject/register.php?error=invalidusername&username=".$username);
-    //    exit();
-    //}
    
     //If no errors caught, check if user already exists in db
     else{
@@ -74,9 +67,7 @@ if ($conn->connect_error) {
 
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
-
 }
-
 //If user accesses page from outside of register.php, redirect to register.php
 else{
     header("Location: ../sadproject/register.php");

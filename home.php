@@ -1,5 +1,6 @@
 <?php
 	require "header.php";
+	require "dbh.php";
 	?>
 <!DOCTYPE html>
 		
