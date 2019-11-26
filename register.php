@@ -1,11 +1,11 @@
 
 <?php
 	$servername = "localhost";
-	$username = "root";  //your user name for php my admin if in local most probaly it will be "root"
-	$password = "";  //password probably it will be empty
-	$databasename = "registration"; //Your db nane
+	$dbusername = "root";  //your user name for php my admin if in local most probaly it will be "root"
+	$dbpassword = "";  //password probably it will be empty
+	$databasename = "registration"; //Your db name
 	// Create connection
-	$conn = new mysqli($servername, $username, $password,$databasename);
+	$conn = mysqli_connect($servername, $dbusername, $dbpassword,$databasename);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
