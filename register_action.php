@@ -1,4 +1,6 @@
 <?php 
+    require "header.php";
+    
 //If user has accessed register_action.php via submit button on register.php
 if (isset($_POST['register-submit'])){
     require 'dbh.php';
@@ -13,8 +15,6 @@ if ($conn->connect_error) {
     $password = $_POST['password'];
     $passwordConfirm = $_POST['passwordConfirm'];
     
-
-
 
     //--------Error Handling--------
 

@@ -1,16 +1,12 @@
 
 <?php
-	$servername = "localhost";
-	$dbusername = "root";  //your user name for php my admin if in local most probaly it will be "root"
-	$dbpassword = "";  //password probably it will be empty
-	$databasename = "registration"; //Your db name
-	// Create connection
-	$conn = mysqli_connect($servername, $dbusername, $dbpassword,$databasename);
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	} 
-	echo "Connected successfully";
+	require "header.php";
+
+	//If user is already logged in, redirect to main_page
+	if(isset($_SESSION['id'])){
+		header("Location: ../sadproject/main_page.php");
+	}
+
 ?>
 
 	<!DOCTYPE html>
@@ -32,8 +28,6 @@
 			
 			<h1><center>REGISTER</center></h1>
 
-
-
 			<form onsubmit="return validatePassword()" action="register_action.php" method="post">
 
 			<div class="container">
@@ -52,7 +46,6 @@
 				<script>
 				var password = document.getElementById("password"), 
 				passwordConfirm = document.getElementById("passwordConfirm");
-
 				function validatePassword(){
 					if(password.value != passwordConfirm.value) {
 						passwordConfirm.setCustomValidity("Passwords Don't Match");
@@ -61,7 +54,6 @@
 						passwordConfirm.setCustomValidity('');
 					}
 				}
-
 				password.onchange = validatePassword;
 				passwordConfirm.onkeyup = validatePassword;
 				</script>

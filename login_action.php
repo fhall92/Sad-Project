@@ -1,13 +1,12 @@
 <?php
+	require "header.php";
 
 	//Ensure user accessed page by clicking submit button on login.php
 	if(isset($_POST['login-submit'])){
 
 		require 'dbh.php';
-
 		$username = $_POST['username'];
     	$password = $_POST['password'];
-
 
 		//Check for empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
 		if(empty($username) || empty($password)){
@@ -25,16 +24,12 @@
 			}
 
 			else{
-
 				mysqli_stmt_bind_param($stmt, "s", $username);
 				mysqli_stmt_execute($stmt);
 				$result = mysqli_stmt_get_result($stmt);
 
 				//If $result holds a value
 				if($row = mysqli_fetch_assoc($result)){
-
-					echo "Inside IF STATEMENT";
-
 					//If Passwords don't match
 					if($password != $row[password]){
 						header("Location: ../sadproject/login.php?error=incorrectPassword");
@@ -55,14 +50,9 @@
 				else{
 				header("Location: ../sadproject/login.php?error=nouser");
 				exit();
+				}
 			}
-
-			}
-
-		}
-
-
-		
+		}	
 	}
 
 	//If user has accessed page without clicking submit on login.php

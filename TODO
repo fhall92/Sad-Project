@@ -15,8 +15,8 @@ TO-DO
 - Lockout after 5 attempts for 3 minutes []
 
 --Successful Attempt (15%)--
-- System greets you by username []
-- Create active authenticated session []
+- System greets you by username [X]
+- Create active authenticated session [X]
 - Authenticated user may view 2 or more pages []
 - secure logout []
 - lockout aafter 10 mins inactivity []

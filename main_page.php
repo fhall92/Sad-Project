@@ -26,19 +26,8 @@
 			STUDENT NAME: FRANCIS HALL<br>
 			STUDENT NUMBER: C00220910<br>
 			<br>
-
-			<?php
-			//If user is already logged in, redirect to main_page
-			if(isset($_SESSION['id'])){
-				header("Location: ../sadproject/main_page.php");
-			}
-
-			else{
-				echo 'YOU ARE CURRENTLY LOGGED OUT<br>';
-				echo 'PLEASE REGISTER OR LOGIN ABOVE<br>';
-			}
-			?>
-
+			PLEASE REGISTER OR LOGIN ABOVE<br>
+			TO VIEW VERY SECURE, VERY TASTY INFORMATION
 			</h2>
 			
 			</center>
