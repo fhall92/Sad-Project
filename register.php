@@ -48,14 +48,50 @@
 				var password = document.getElementById("password"), 
 				passwordConfirm = document.getElementById("passwordConfirm");
 				function validatePassword(){
+					//Check that password and confirmPassword match
 					if(password.value != passwordConfirm.value) {
 						passwordConfirm.setCustomValidity("Passwords Don't Match");
+
+						//Check for at least one upper case character
+						var upperCase = /[A-Z]/g;
+						if(password.value.match(upperCase)) {
+							password.setCustomValidity('');
+
+							//Check for at least one lower case character
+							var lowerCase = /[a-z]/g;
+							if(password.value.match(lowerCase)) {
+								password.setCustomValidity('');
+
+								//Check for at least one numerical character
+								var numbers = /[0-9]/g;
+								if(password.value.match(numbers)){
+									password.setCustomValidity('');
+
+									//Check that password is at least 8 characters long
+									if(password.value.length >= 8){
+										password.setCustomValidity('');
+									}
+									else if(password.value.length < 8){
+										password.setCustomValidity('Password must be at least 8 characters long');
+									}
+								}
+								else if (!password.value.match(numbers)){
+										password.setCustomValidity('Password must contain at least one number');
+								}
+							} 
+							else if(!password.value.match(lowerCase)){
+									password.setCustomValidity('Password must contain at least one lower case letter');
+								}
+						} 
+						else if(!password.value.match(upperCase)){
+								password.setCustomValidity('Password must contain at least one upper case letter');
+							}
 					} 
 					else {
 						passwordConfirm.setCustomValidity('');
 					}
 				}
-				password.onchange = validatePassword;
+				password.onkeyup = validatePassword;
 				passwordConfirm.onkeyup = validatePassword;
 				</script>
 
