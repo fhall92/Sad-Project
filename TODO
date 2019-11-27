@@ -11,7 +11,7 @@ TO-DO
 
 - Generic error message "The username X and password comibation cannot be authenticated" [X]
 - Username reflected in error message [X]
-- Reflected parameter not susceptible to XSS []
+- Reflected parameter not susceptible to XSS [X]
 - Lockout after 5 attempts for 3 minutes []
 
 --Successful Attempt (15%)--
