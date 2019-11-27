@@ -6,7 +6,9 @@
 
 		require 'dbh.php';
 		$username = $_POST['username'];
-    	$password = $_POST['password'];
+		$password = $_POST['password'];
+		
+		$usernameSanitize = filter_var($username, FILTER_SANITIZE_STRING);
 
 		//Check for empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
 		if(empty($username) || empty($password)){
@@ -30,8 +32,10 @@
 
 				//If $result holds a value
 				if($row = mysqli_fetch_assoc($result)){
+					
 					//If Passwords don't match
-					if($password != $row[password]){
+					$passwordCheck = password_verify($password, $row['password']);
+					if($passwordCheck == false){
 						header("Location: ../sadproject/login.php?error=incorrectPassword");
 						exit();
 					}
@@ -48,8 +52,14 @@
 
 				//if $result is empty
 				else{
-				header("Location: ../sadproject/login.php?error=nouser");
-				exit();
+					echo "<script>
+					alert ('The username ' + '$usernameSanitize' + 
+							' and password combination cannot be authorised');
+					window.location.href = 'login.php';
+					</script>";
+
+					
+				//exit();
 				}
 			}
 		}	
@@ -57,6 +67,6 @@
 
 	//If user has accessed page without clicking submit on login.php
 	else{
-		header("Location: ../sadproject/login.php");
+		header("Location: ../sadproject/login.php?error=UnauthorisedAccess");
 		exit();
 	}

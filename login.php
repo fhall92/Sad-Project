@@ -3,6 +3,52 @@
 	require "header.php";
 	require "dbh.php";
 	
+	//Create ADMIN user if none exists
+	$adminUsername = "ADMIN";
+	$adminPassword = "Sad_2019!";
+	$passwordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
+
+
+
+	//Check if ADMIN already exists in db
+	$sql = "SELECT username FROM users WHERE username=?";
+	$stmt = mysqli_stmt_init($conn);
+
+	if(!mysqli_stmt_prepare($stmt, $sql)){
+		//header("Location: ../sadproject/home.php?error=sqlerror1");
+		exit();
+	}
+	else{
+		mysqli_stmt_bind_param($stmt, "s", $adminUsername);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_store_result($stmt);
+		$resultCheck = mysqli_stmt_num_rows($stmt);
+
+		if($resultCheck > 0){
+			echo "--ADMIN user already exists--";
+		}
+		//Else, register user
+		else{
+			$sql = "INSERT INTO users(username, password) VALUES (?, ?)";
+					$stmt = mysqli_stmt_init($conn);
+					
+					//If registration fails, redirect to home.php
+					if(!mysqli_stmt_prepare($stmt, $sql)){
+						//header("Location: ../sadproject/home.php?error=sqlerror2");
+
+					}
+
+					else{   
+						mysqli_stmt_bind_param($stmt, "ss", $adminUsername, $passwordHash);
+						mysqli_stmt_execute($stmt);
+						mysqli_stmt_store_result($stmt);
+						echo "--ADMIN user created--";
+					}
+			}
+		}
+
+
+
 	//If user is already logged in, redirect to main_page
 	if(isset($_SESSION['id'])){
 		header("Location: ../sadproject/main_page.php");

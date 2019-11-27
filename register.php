@@ -61,7 +61,6 @@
 							var lowerCase = /[a-z]/g;
 							if(password.value.match(lowerCase)) {
 								password.setCustomValidity('');
-
 								//Check for at least one numerical character
 								var numbers = /[0-9]/g;
 								if(password.value.match(numbers)){

@@ -13,18 +13,15 @@ if ($conn->connect_error) {
     $password = $_POST['password'];
     $passwordConfirm = $_POST['passwordConfirm'];
     
-
     //--------Error Handling--------
-
     //Empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
     if(empty($username) || empty($password) || empty($passwordConfirm)){
         header("Location: ../sadproject/register.php?error=emptyfields");
         exit();
     }
    
-    //If no errors caught, check if user already exists in db
     else{
-
+        //Check if user already exists in db
         $sql = "SELECT username FROM users WHERE username=?";
         $stmt = mysqli_stmt_init($conn);
 
@@ -32,7 +29,6 @@ if ($conn->connect_error) {
             header("Location: ../sadproject/register.php?error=sqlerror1");
             exit();
         }
-
         else{
             mysqli_stmt_bind_param($stmt, "s", $username);
             mysqli_stmt_execute($stmt);
@@ -55,7 +51,11 @@ if ($conn->connect_error) {
                 }
 
                 else{
-                    mysqli_stmt_bind_param($stmt, "ss", $username, $password);
+                    
+                    //Hash Password
+                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+                    mysqli_stmt_bind_param($stmt, "ss", $username, $passwordHash);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
                     header("Location: ../sadproject/register.php?registration=success");
@@ -68,6 +68,7 @@ if ($conn->connect_error) {
     mysqli_stmt_close($stmt);
     mysqli_close($conn);
 }
+
 //If user accesses page from outside of register.php, redirect to register.php
 else{
     header("Location: ../sadproject/register.php");
