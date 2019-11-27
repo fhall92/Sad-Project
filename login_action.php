@@ -36,8 +36,11 @@
 					//If Passwords don't match
 					$passwordCheck = password_verify($password, $row['password']);
 					if($passwordCheck == false){
-						header("Location: ../sadproject/login.php?error=incorrectPassword");
-						exit();
+						echo "<script>
+						alert ('The username ' + '$usernameSanitize' + 
+								' and password combination cannot be authorised');
+								window.location.href = 'login.php';
+								</script>";
 					}
 
 					else{

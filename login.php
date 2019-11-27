@@ -5,7 +5,7 @@
 	
 	//Create ADMIN user if none exists
 	$adminUsername = "ADMIN";
-	$adminPassword = "Sad_2019!";
+	$adminPassword = "SAD_2019!";
 	$passwordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
 
 
