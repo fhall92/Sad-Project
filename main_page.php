@@ -12,9 +12,7 @@
 		<body>
 			<div class="navbar">		
 				<ul>
-					<li><a href="home.php"> Home</a></li>
-					<li><a href="login.php"> Login </a></li>
-					<li><a href="register.php"> Register </a></li>
+					<li><a href="logout.php"> Logout </a></li>
 				</ul>
 			</div>
 			
@@ -26,8 +24,19 @@
 			STUDENT NAME: FRANCIS HALL<br>
 			STUDENT NUMBER: C00220910<br>
 			<br>
-			PLEASE REGISTER OR LOGIN ABOVE<br>
-			TO VIEW VERY SECURE, VERY TASTY INFORMATION
+			<?php
+			//If user is already logged in, redirect to main_page
+			if(isset($_SESSION['id'])){
+				echo 'Welcome '.$_SESSION['username'].'<br>';
+				echo 'YOU ARE LOGGED IN<br>';
+				
+			}
+
+			else{
+				header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
+
+			}
+			?>
 			</h2>
 			
 			</center>

@@ -5,6 +5,7 @@ TO-DO
 - Passwords salted and hashed []
 - Complexity Rules for Passwords [X]
 - Adequate error handling [X]
+- ADMIN user created automatically [X]
 
 -----------------------Login-------------------------------------
 --Unsuccessful Attempt (20%)--
@@ -18,7 +19,7 @@ TO-DO
 - System greets you by username [X]
 - Create active authenticated session [X]
 - Authenticated user may view 2 or more pages []
-- secure logout []
+- secure logout [X]
 - lockout aafter 10 mins inactivity []
 - Max session duration 1 hour []
 
