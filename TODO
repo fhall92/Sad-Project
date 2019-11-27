@@ -3,8 +3,8 @@ TO-DO
 --------------------Registration (10%)---------------------------
 - Users registered to database [X]
 - Passwords salted and hashed []
-- Complexity Rules for Passwords []
-- Adequate error handling []
+- Complexity Rules for Passwords [X]
+- Adequate error handling [X]
 
 -----------------------Login-------------------------------------
 --Unsuccessful Attempt (20%)--
