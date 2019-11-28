@@ -16,7 +16,7 @@
 				</ul>
 			</div>
 			
-			<h1><center>Home</center></h1>
+			<h1><center>Main Page</center></h1>
 			
 			<center>
 			<h2>
