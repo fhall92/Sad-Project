@@ -31,7 +31,7 @@ TO-DO
 - GET not POST []
 
 --------------Event Log & ADMIN user (10%)--------------------
-- All login attempts stored in login []
+- All login attempts stored in log []
 - Log viewable by ADMIN only []
 
 --------------Testing-------------------------

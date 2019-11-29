@@ -28,8 +28,7 @@
 			//If user is already logged in, redirect to main_page
 			if(isset($_SESSION['id'])){
 				echo 'Welcome '.$_SESSION['username'].'<br>';
-				echo 'YOU ARE LOGGED IN<br>';
-				
+				echo 'YOU ARE LOGGED IN<br>';			
 			}
 
 			else{

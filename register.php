@@ -33,7 +33,7 @@
 
 			<div class="container">
 				<label for="uname"><b>Username</b></label>
-				<input type="text" placeholder="Enter Username" name="username" required>
+				<input type="text" placeholder="Enter Username" name="username" id="username" required>
 
 				<label for="psw"><b>Password</b></label>
 				<input type="password" onkeypress="validatePassword();" placeholder="Enter Password" name="password" id="password" required>
@@ -47,7 +47,7 @@
 				<script>
 				var password = document.getElementById("password"), 
 				passwordConfirm = document.getElementById("passwordConfirm");
-				var username = document.getElementById("username");
+				
 				function validatePassword(){
 					//Check that password and confirmPassword match
 					if(password.value != passwordConfirm.value) {
@@ -70,16 +70,6 @@
 									//Check that password is at least 8 characters long
 									if(password.value.length >= 8){
 										password.setCustomValidity('');
-
-										//Check if password is the same as username
-										if (password.value != username.value){
-											password.setCustomValidity('');
-										}
-
-										else if (password.value == username.value){
-											passwordConfirm.setCustomValidity('Password cannot be the same as username');
-										}
-										
 									}
 									else if(password.value.length < 8){
 										password.setCustomValidity('Password must be at least 8 characters long');

@@ -11,8 +11,6 @@
 	//Login Attempts
 	$loginAttempts = 0;
 
-
-
 	//Check if ADMIN already exists in db
 	$sql = "SELECT username FROM users WHERE username=?";
 	$stmt = mysqli_stmt_init($conn);
