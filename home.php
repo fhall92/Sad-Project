@@ -36,6 +36,7 @@
 			else{
 				echo 'YOU ARE CURRENTLY LOGGED OUT<br>';
 				echo 'PLEASE REGISTER OR LOGIN ABOVE<br>';
+				
 			}
 			?>
 

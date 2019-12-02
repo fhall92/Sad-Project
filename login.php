@@ -9,7 +9,7 @@
 	$passwordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
 
 	//Login Attempts
-	$loginAttempts = 0;
+	$_SESSION['loginCount'] = 0;
 
 	//Check if ADMIN already exists in db
 	$sql = "SELECT username FROM users WHERE username=?";

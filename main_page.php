@@ -13,6 +13,8 @@
 			<div class="navbar">		
 				<ul>
 					<li><a href="logout.php"> Logout </a></li>
+					<li><a href="page1.php"> page1 </a></li>
+					<li><a href="page2.php"> page2 </a></li>
 				</ul>
 			</div>
 			

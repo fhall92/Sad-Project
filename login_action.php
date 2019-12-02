@@ -36,11 +36,18 @@
 					//If Passwords don't match
 					$passwordCheck = password_verify($password, $row['password']);
 					if($passwordCheck == false){
+
+						$_SESSION['loginCount'] = $_SESSION['loginCount'] + 1;
+
 						echo "<script>
 						alert ('The username ' + '$usernameSanitize' + 
 								' and password combination cannot be authorised');
 								window.location.href = 'login.php';
 								</script>";
+
+						
+								
+								
 					}
 
 					else{
@@ -49,12 +56,15 @@
 						$_SESSION['id'] = $row['id'];
 						$_SESSION['username'] = $row['username'];
 
-						header("Location: ../sadproject/home.php?login=success");
+					header("Location: ../sadproject/main_page.php?login=success");
 					}
 				}
 
 				//if $result is empty
 				else{
+
+					$_SESSION['loginCount'] = $_SESSION['loginCount'] + 1;
+
 					echo "<script>
 					alert ('The username ' + '$usernameSanitize' + 
 							' and password combination cannot be authorised');
