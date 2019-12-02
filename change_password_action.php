@@ -12,6 +12,8 @@ if ($conn->connect_error) {
     $username = $_SESSION['username'];
     $oldPassword = $_POST['oldPassword'];
     $newPassword = $_POST['newPassword'];
+    //Hash Password
+    $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
 
     //IF Old username & password combination are valid
@@ -53,6 +55,27 @@ if ($conn->connect_error) {
 
                 else{
                     //Register new Password, Kill session, redirect to login
+
+                    $sql = "UPDATE users SET password=? WHERE username=?";
+                    $stmt = mysqli_stmt_init($conn);
+                    
+                    //If sql fail
+                    if(!mysqli_stmt_prepare($stmt, $sql)){
+                        header("Location: ../sadproject/change_password.php?error=sqlerror2");
+                        exit();
+                    }
+
+                    else{
+                        
+                        mysqli_stmt_bind_param($stmt, "ss", $passwordHash, $username);
+                        mysqli_stmt_execute($stmt);
+                        mysqli_stmt_store_result($stmt);
+                        
+                        session_unset();
+                        session_destroy();
+                        header("Location: ../sadproject/home.php");
+                        exit();
+                    }
                     
                 }
             }
