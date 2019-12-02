@@ -32,7 +32,7 @@ TO-DO
 
 --------------Event Log & ADMIN user (10%)--------------------
 - All login attempts stored in log []
-- Log viewable by ADMIN only []
+- Log viewable by ADMIN only [X]
 
 --------------Testing (30%)-------------------------
 - Documentation []
