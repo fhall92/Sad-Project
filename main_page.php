@@ -15,6 +15,7 @@
 					<li><a href="logout.php"> Logout </a></li>
 					<li><a href="page1.php"> page1 </a></li>
 					<li><a href="page2.php"> page2 </a></li>
+					<li><a href="change_password.php"> Change Password </a></li>
 				</ul>
 			</div>
 			
@@ -27,7 +28,8 @@
 			STUDENT NUMBER: C00220910<br>
 			<br>
 			<?php
-			//If user is already logged in, redirect to main_page
+
+			//If user is not logged in, redirect to home.php
 			if(isset($_SESSION['id'])){
 				echo 'Welcome '.$_SESSION['username'].'<br>';
 				echo 'YOU ARE LOGGED IN<br>';			
@@ -35,7 +37,6 @@
 
 			else{
 				header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
-
 			}
 			?>
 			</h2>

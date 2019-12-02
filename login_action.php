@@ -8,7 +8,7 @@
 		$username = $_POST['username'];
 		$password = $_POST['password'];
 		
-		$usernameSanitize = filter_var($username, FILTER_SANITIZE_STRING);
+		$usernameSanitize = filter_var($username, FILTER_SANITIZE_STRIPPED);
 
 		//Check for empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
 		if(empty($username) || empty($password)){
@@ -43,11 +43,7 @@
 						alert ('The username ' + '$usernameSanitize' + 
 								' and password combination cannot be authorised');
 								window.location.href = 'login.php';
-								</script>";
-
-						
-								
-								
+								</script>";			
 					}
 
 					else{
@@ -70,9 +66,6 @@
 							' and password combination cannot be authorised');
 					window.location.href = 'login.php';
 					</script>";
-
-					
-				//exit();
 				}
 			}
 		}	

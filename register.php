@@ -43,7 +43,7 @@
 
 				<button type="submit" name="register-submit">Register</button>
 
-				<!-- Password/Confirm Password Validation -->
+				<!-- Password Validation -->
 				<script>
 				var password = document.getElementById("password"), 
 				passwordConfirm = document.getElementById("passwordConfirm");
