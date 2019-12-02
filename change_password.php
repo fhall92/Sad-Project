@@ -26,7 +26,7 @@
 			<h1><center>Change Password</center></h1>
 			
 			<center>
-            <form onsubmit="return validatePassword()" action="change_password_action.php" method="post">
+            <form onsubmit="return validatePassword()" action="change_password_action.php" method="get">
 
 			<div class="container">
 				<label for="oPsw"><b>Old Password</b></label>

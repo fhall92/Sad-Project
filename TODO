@@ -17,24 +17,24 @@ TO-DO
 --Successful Attempt (15%)--
 - System greets you by username [X]
 - Create active authenticated session [X]
-- Authenticated user may view 2 or more pages []
+- Authenticated user may view 2 or more pages [X]
 - secure logout [X]
 - lockout after 10 mins inactivity []
 - Max session duration 1 hour []
 
 --------------- Password Change (15%) ---------------------------
-- Authenticated user can change password []
-- Complexity rules for password []
-- session expires on password change []
-- User needs to re-auth using new credentials to access []
+- Authenticated user can change password [X]
+- Complexity rules for password [X]
+- session expires on password change [X]
+- User needs to re-auth using new credentials to access [X]
 - Cross Site Request Forgery protection []
-- GET not POST []
+- GET not POST [X]
 
 --------------Event Log & ADMIN user (10%)--------------------
 - All login attempts stored in log []
 - Log viewable by ADMIN only []
 
---------------Testing-------------------------
+--------------Testing (30%)-------------------------
 - Documentation []
 	- Implemented Functionality []
 	- Security Test Cases []
@@ -45,7 +45,6 @@ TO-DO
 	
 
 ----------FINAL CHECKS-----------------------
-	- Change POST to GET and test functionality []
 	- Sanitise all form values []
 
 

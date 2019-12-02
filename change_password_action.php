@@ -2,7 +2,7 @@
     require "header.php";
     
 //If user has accessed register_action.php via submit button on register.php
-if (isset($_POST['change-password-submit'])){
+if (isset($_GET['change-password-submit'])){
     require 'dbh.php';
     
 // Check connection
@@ -10,8 +10,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
     $username = $_SESSION['username'];
-    $oldPassword = $_POST['oldPassword'];
-    $newPassword = $_POST['newPassword'];
+    $oldPassword = $_GET['oldPassword'];
+    $newPassword = $_GET['newPassword'];
     //Hash Password
     $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
