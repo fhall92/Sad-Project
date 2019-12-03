@@ -1,6 +1,10 @@
 <?php 
 
-    require 'header.php';
+	require 'header.php';
+	
+	if(!isset($_SESSION['id'])){
+        header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
+    }
 
     echo 'Page 2\n';
     echo $_SESSION['id'];
