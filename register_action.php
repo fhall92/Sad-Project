@@ -1,57 +1,52 @@
-<?php 
-    require "header.php";
-    
+<?php
+require "header.php";
+
 //If user has accessed register_action.php via submit button on register.php
-if (isset($_POST['register-submit'])){
+if (isset($_POST['register-submit'])) {
     require 'dbh.php';
-    
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
     $username = $_POST['username'];
     $password = $_POST['password'];
     $passwordConfirm = $_POST['passwordConfirm'];
-    
+
     //--------Error Handling--------
     //Empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
-    if(empty($username) || empty($password) || empty($passwordConfirm)){
+    if (empty($username) || empty($password) || empty($passwordConfirm)) {
         header("Location: ../sadproject/register.php?error=emptyfields");
         exit();
-    }
-   
-    else{
+    } else {
         //Check if user already exists in db
         $sql = "SELECT username FROM users WHERE username=?";
         $stmt = mysqli_stmt_init($conn);
 
-        if(!mysqli_stmt_prepare($stmt, $sql)){
+        if (!mysqli_stmt_prepare($stmt, $sql)) {
             header("Location: ../sadproject/register.php?error=sqlerror1");
             exit();
-        }
-        else{
+        } else {
             mysqli_stmt_bind_param($stmt, "s", $username);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_store_result($stmt);
             $resultCheck = mysqli_stmt_num_rows($stmt);
 
-            if($resultCheck > 0){
+            if ($resultCheck > 0) {
                 header("Location: ../sadproject/register.php?error=useralreadyexists");
                 exit();
             }
             //Else, register user
-            else{
+            else {
                 $sql = "INSERT INTO users(username, password) VALUES (?, ?)";
                 $stmt = mysqli_stmt_init($conn);
-                
+
                 //If registration fails, redirect to register.php
-                if(!mysqli_stmt_prepare($stmt, $sql)){
+                if (!mysqli_stmt_prepare($stmt, $sql)) {
                     header("Location: ../sadproject/register.php?error=sqlerror2");
                     exit();
-                }
+                } else {
 
-                else{
-                    
                     //Hash Password
                     $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -70,7 +65,7 @@ if ($conn->connect_error) {
 }
 
 //If user accesses page from outside of register.php, redirect to register.php
-else{
+else {
     header("Location: ../sadproject/register.php");
     exit();
 }

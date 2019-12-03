@@ -3,19 +3,19 @@
 $servername = "localhost";
 $dbusername = "root";
 $dbpassword = "";
-$databasename = "registration"; 
+$databasename = "registration";
 
-$conn = new mysqli ($servername,$dbusername,$dbpassword);
+$conn = new mysqli($servername, $dbusername, $dbpassword);
 
 //Checking Connection
-if ($conn->connect_error){
- echo "Connection not detected".$conn->connect_error;
+if ($conn->connect_error) {
+	echo "Connection not detected" . $conn->connect_error;
 }
 
 //Create databases if it none exist
 $sql = "CREATE DATABASE IF NOT EXISTS registration";
-if ($conn->query($sql) === FALSE){
-return true;
+if ($conn->query($sql) === FALSE) {
+	return true;
 }
 
 mysqli_select_db($conn, $databasename);
@@ -26,10 +26,10 @@ $table_sql = "CREATE TABLE IF NOT EXISTS users (
 	`password` varchar(256)  NOT NULL default '', 
 
 	 PRIMARY KEY  (`id`)
-  )"; 
+  )";
 
-if ($conn->query($table_sql) === FALSE){
-echo "Table 1 not created: ".$conn->error;
+if ($conn->query($table_sql) === FALSE) {
+	echo "Table 1 not created: " . $conn->error;
 }
 
 
@@ -41,9 +41,9 @@ $table_sql = "CREATE TABLE IF NOT EXISTS attempts(
 	`isSucess` INT NOT NULL DEFAULT (0),
 	`timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP);";
 
-if ($conn->query($table_sql) === FALSE){
-	echo "Table 2 not created: ".$conn->error;
-	}
+if ($conn->query($table_sql) === FALSE) {
+	echo "Table 2 not created: " . $conn->error;
+}
 
 
 
