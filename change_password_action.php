@@ -49,7 +49,6 @@ if (isset($_GET['change-password-submit'])) {
                             </script>";
                 } else {
                     //Register new Password, Kill session, redirect to login
-
                     $sql = "UPDATE users SET password=? WHERE username=?";
                     $stmt = mysqli_stmt_init($conn);
 

@@ -1,18 +1,18 @@
 TO-DO
 
---------------------Registration (10%)---------------------------
+--------------------Registration (10%)-----------------------------
 - Users registered to database [X]
 - Complexity Rules for Passwords [X]
 - Adequate error handling [X]
 - ADMIN user created automatically [X]
 
------------------------Login-------------------------------------
+-----------------------Login---------------------------------------
 --Unsuccessful Attempt (20%)--
 
 - Generic error message "The username X and password comibation cannot be authenticated" [X]
 - Username reflected in error message [X]
 - Reflected parameter not susceptible to XSS [X]
-- Lockout after 5 attempts for 3 minutes []
+- Lockout after 5 attempts for 3 minutes [X]
 
 --Successful Attempt (15%)--
 - System greets you by username [X]
@@ -34,7 +34,7 @@ TO-DO
 - All login attempts stored in log []
 - Log viewable by ADMIN only [X]
 
---------------Testing (30%)-------------------------
+--------------Testing (30%)-----------------------------------
 - Documentation []
 	- Implemented Functionality []
 	- Security Test Cases []
@@ -44,7 +44,7 @@ TO-DO
 	  	  tests performed along with results.
 	
 
-----------FINAL CHECKS-----------------------
+----------FINAL CHECKS----------------------------------------
 	- Sanitise all form values []
 
 
@@ -64,3 +64,6 @@ CREATE SANITIZATION FUNCTION
 USE BUILTIN HASHING FUNCTION BUT DO SALT AND STUFF YOURSELF
 
 TIE USER AGENT AND IP ADDRESS TOGETHER (IN DATABASE OR IN MEMORY)
+
+
+TEST FOR XSS, CSRF, ESCAPE CHARACTERS, Persistent, Brute Force
