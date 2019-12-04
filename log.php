@@ -1,5 +1,10 @@
 <?php
 require "header.php";
+
+if (!isset($_SESSION['id']) && $_SESSION['username'] != 'ADMIN') {
+	header("Location: ../sadproject/main_page.php?error=UnauthorisedAccessAdminOnly");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -21,28 +26,10 @@ require "header.php";
 	</div>
 
 	<h1>
-		<center>Main Page</center>
+		<center>LOG</center>
 	</h1>
 
-	<center>
-		<h2>
-			<p>SAD PROJECT 2019/2020<br>
-				STUDENT NAME: FRANCIS HALL<br>
-				STUDENT NUMBER: C00220910<br>
-				<br>
-				<?php
-
-				//If user is not logged in, redirect to home.php
-				if (isset($_SESSION['id']) && $_SESSION['username'] == 'ADMIN') {
-					echo 'Welcome ' . $_SESSION['username'] . '<br>';
-					echo 'LOG<br>';
-				} else {
-					header("Location: ../sadproject/main_page.php?error=UnauthorisedAccess");
-				}
-				?>
-		</h2>
-
-	</center>
+	
 
 
 

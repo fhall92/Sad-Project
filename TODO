@@ -20,14 +20,13 @@ TO-DO
 - Authenticated user may view 2 or more pages [X]
 - secure logout [X]
 - lockout after 10 mins inactivity []
-- Max session duration 1 hour []
+- Max session duration 1 hour [X]
 
 --------------- Password Change (15%) ---------------------------
 - Authenticated user can change password [X]
 - Complexity rules for password [X]
 - session expires on password change [X]
 - User needs to re-auth using new credentials to access [X]
-- Cross Site Request Forgery protection []
 - GET not POST [X]
 
 --------------Event Log & ADMIN user (10%)--------------------
