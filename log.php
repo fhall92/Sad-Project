@@ -1,5 +1,6 @@
 <?php
 require "header.php";
+require "dbh.php";
 
 if (!isset($_SESSION['id']) && $_SESSION['username'] != 'ADMIN') {
 	header("Location: ../sadproject/main_page.php?error=UnauthorisedAccessAdminOnly");
@@ -24,14 +25,42 @@ if (!isset($_SESSION['id']) && $_SESSION['username'] != 'ADMIN') {
 			<li><a href="log.php"> LOG </a></li>
 		</ul>
 	</div>
+	<div>
+		<h1>
+			<center>LOG</center>
+		</h1>
+	</div>
+	<div>
+		<table border="1">
+			<tr>
+				<th>Id</th>
+				<th>Username</th>
+				<th>IP</th>
+				<th>Timestamp</th>
+				<th>isSuccess</th>
 
-	<h1>
-		<center>LOG</center>
-	</h1>
+			</tr>
+			<?php
 
-	
-
-
+			// Check connection
+			if ($conn->connect_error) {
+				die("Connection failed: " . $conn->connect_error);
+			}
+			$sql = "SELECT `id`, `username`, `ip`, `timestamp`, `isSuccess` FROM `attempts`";
+			$result = $conn->query($sql);
+			if ($result->num_rows > 0) {
+				// output data of each row
+				while ($row = $result->fetch_assoc()) {
+					echo "<tr><td>" . $row["id"] . "</td><td>". $row["username"]."</td><td>". $row["ip"]  . "</td><td>". $row["timestamp"]. "</td><td>". $row["isSuccess"]  ."</tr>";
+				}
+				echo "</table>";
+			} else {
+				echo "0 results";
+			}
+			$conn->close();
+			?>
+		</table>
+	</div>
 
 </body>
 

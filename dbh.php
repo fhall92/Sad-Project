@@ -38,7 +38,7 @@ $table_sql = "CREATE TABLE IF NOT EXISTS attempts(
 	`username` VARCHAR(30) NOT NULL,
 	`ip` CHAR(16) COLLATE utf8_bin NOT NULL,
 	`userAgent` VARCHAR(256) NOT NULL,
-	`isSucess` INT NOT NULL DEFAULT (0),
+	`isSuccess` INT NOT NULL DEFAULT (0),
 	`timestamp` timestamp NOT NULL DEFAULT NOW());";
 
 if ($conn->query($table_sql) === FALSE) {

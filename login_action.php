@@ -56,7 +56,7 @@ if (isset($_POST['login-submit'])) {
 						$result = mysqli_query($conn, "SELECT COUNT(*) FROM `attempts` WHERE 
 											`ip` LIKE '$ip' 
                                         AND `userAgent` LIKE '$userAgent'
-										AND `isSucess` LIKE 0
+										AND `isSuccess` LIKE 0
 										AND `timestamp` > DATE_SUB(NOW(), INTERVAL 3 MINUTE);");
 						$_SESSION['count'] = mysqli_fetch_array($result, MYSQLI_NUM);
 
@@ -75,28 +75,70 @@ if (isset($_POST['login-submit'])) {
 						//Else, if user is not Locked out
 						else {
 							if ($_SESSION['count'][0] != 5) {
-								echo "you have " . (5 - $_SESSION['count'][0]) . " attempts remaining";
+								$attemptsRemaining = (5 - $_SESSION['count'][0]);
 							}
 						}
 
 						echo "<script>
 						alert ('The username ' + '$username' + 
-								' and password combination cannot be authorised');
-								//window.location.href = 'login.php';
+						' and password combination cannot be authorised. You have ' + '$attemptsRemaining' + ' attempts remaining.');
+								window.location.href = 'login.php?error=NotAuthorised';
 								</script>";
 					} else {
 						//Create Session
 						session_start();
 						$_SESSION['id'] = $row['id'];
 						$_SESSION['username'] = $row['username'];
+						$loginSuccess = 1;
+
+						//Store Successful Login Attempts
+						$sql = "INSERT INTO `attempts`(`username`, `ip`, `userAgent`,`isSuccess`) VALUES (?,?,?,?)";
+						if (mysqli_stmt_prepare($stmt, $sql)) {
+							mysqli_stmt_bind_param($stmt, "ssss", $username, $ip, $userAgent, $loginSuccess);
+							mysqli_stmt_execute($stmt);
+						}
 
 						header("Location: ../sadproject/main_page.php?login=success");
 					}
 				} else {
+
+					//Store unsuccessful Login Attempts
+					$sql = "INSERT INTO `attempts`(`username`, `ip`, `userAgent`) VALUES (?,?,?)";
+					if (mysqli_stmt_prepare($stmt, $sql)) {
+						mysqli_stmt_bind_param($stmt, "sss", $username, $ip, $userAgent);
+						mysqli_stmt_execute($stmt);
+					}
+
+					$result = mysqli_query($conn, "SELECT COUNT(*) FROM `attempts` WHERE 
+										`ip` LIKE '$ip' 
+									AND `userAgent` LIKE '$userAgent'
+									AND `isSuccess` LIKE 0
+									AND `timestamp` > DATE_SUB(NOW(), INTERVAL 3 MINUTE);");
+					$_SESSION['count'] = mysqli_fetch_array($result, MYSQLI_NUM);
+
+					//IF over 5 attempts
+					if ($_SESSION['count'][0] > 5) {
+						//User is locked out, set Lockout to true and record lockout time
+						$_SESSION['lockout'] = true;
+						$_SESSION['lockoutTime'] = time();
+
+						echo "<script>
+							alert ('You are locked out.');
+							window.location.href = 'login.php?error=LockedOut';
+							</script>";
+					}
+
+					//Else, if user is not Locked out
+					else {
+						if ($_SESSION['count'][0] != 5) {
+							$attemptsRemaining = (5 - $_SESSION['count'][0]);
+						}
+					}
+
 					echo "<script>
 						alert ('The username ' + '$username' + 
-								' and password combination cannot be authorised');
-								//window.location.href = 'login.php';
+								' and password combination cannot be authorised. You have ' + '$attemptsRemaining' + ' attempts remaining.');
+								window.location.href = 'login.php';
 								</script>";
 				}
 			}

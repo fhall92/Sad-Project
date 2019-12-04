@@ -10,6 +10,7 @@
 
 $_SESSION['currentTime'] = time();
 $maxSessionTime = 3600;
+$maxInactivityTime = 600;
 
 if(($_SESSION['currentTime'] - $_SESSION['startTime']) >= $maxSessionTime){
     session_unset();
@@ -17,4 +18,3 @@ if(($_SESSION['currentTime'] - $_SESSION['startTime']) >= $maxSessionTime){
     header("Location: ../sadproject/home.php?SessionTimeout");
     exit();
 }
-?>
