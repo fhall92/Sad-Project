@@ -44,17 +44,3 @@ $table_sql = "CREATE TABLE IF NOT EXISTS attempts(
 if ($conn->query($table_sql) === FALSE) {
 	echo "Table 2 not created: " . $conn->error;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-echo "Connected Successfully";

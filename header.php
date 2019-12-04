@@ -6,7 +6,7 @@
     
 	if (!isset($_SESSION['startTime'])) {
     $_SESSION['startTime'] = time();
-}
+    }
 
 $_SESSION['currentTime'] = time();
 $maxSessionTime = 3600;

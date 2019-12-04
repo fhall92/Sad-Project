@@ -8,9 +8,6 @@
 	$adminPassword = "SAD_2019!";
 	$passwordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
 
-	//Login Attempts
-	$_SESSION['loginCount'] = 0;
-
 	//Check if ADMIN already exists in db
 	$sql = "SELECT username FROM users WHERE username=?";
 	$stmt = mysqli_stmt_init($conn);

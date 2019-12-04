@@ -17,14 +17,12 @@ if (isset($_POST['login-submit'])) {
 	$stmt = mysqli_stmt_init($conn);
 	$currentTime = time();
 
-	if (($currentTime - $_SESSION['lockoutTime']) < 180 && $_SESSION['lockout'] == true) {			
+	if (($currentTime - $_SESSION['lockoutTime']) < 180 && $_SESSION['lockout'] == true) {
 		echo "<script>
 						alert ('You are within Lockout timeframe. Please try again later.');
 								window.location.href = 'login.php?error=LockedOut';
-								</script>";			
-	} 
-	
-	else {
+								</script>";
+	} else {
 		$_SESSION['lockout'] = false;
 		//Check for empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
 		if (empty($username) || empty($password)) {
@@ -55,8 +53,8 @@ if (isset($_POST['login-submit'])) {
 							mysqli_stmt_execute($stmt);
 						}
 
-						$result = mysqli_query($conn, "SELECT COUNT(*) FROM `attempts` WHERE `username` LIKE '$username'
-                                        AND `ip` LIKE '$ip' 
+						$result = mysqli_query($conn, "SELECT COUNT(*) FROM `attempts` WHERE 
+											`ip` LIKE '$ip' 
                                         AND `userAgent` LIKE '$userAgent'
 										AND `isSucess` LIKE 0
 										AND `timestamp` > DATE_SUB(NOW(), INTERVAL 3 MINUTE);");
@@ -78,8 +76,6 @@ if (isset($_POST['login-submit'])) {
 						else {
 							if ($_SESSION['count'][0] != 5) {
 								echo "you have " . (5 - $_SESSION['count'][0]) . " attempts remaining";
-							} else {
-								echo "last chance  <br>";
 							}
 						}
 
