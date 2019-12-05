@@ -43,7 +43,20 @@ if (isset($_POST['login-submit'])) {
 				if ($row = mysqli_fetch_assoc($result)) {
 
 					//If Passwords don't match
-					$passwordCheck = password_verify($password, $row['password']);
+					$salt = $row['salt'];
+					
+					$saltedPassword = $salt.$password;
+                    $passwordHash = Md5($saltedPassword);
+
+					//header("Location: ../sadproject/home.php?$salt");
+
+					if($passwordHash == $row['password']){
+						$passwordCheck = true;
+					}
+					else{
+						$passwordCheck = false;
+					}
+					
 					if ($passwordCheck == false) {
 
 						//Store and Check Login Attempts

@@ -1,5 +1,6 @@
 <?php
 require "header.php";
+include "salt_function.php";
 
 //If user has accessed register_action.php via submit button on register.php
 if (isset($_POST['register-submit'])) {
@@ -38,7 +39,7 @@ if (isset($_POST['register-submit'])) {
             }
             //Else, register user
             else {
-                $sql = "INSERT INTO users(username, password) VALUES (?, ?)";
+                $sql = "INSERT INTO users(username, password, salt) VALUES (?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);
 
                 //If registration fails, redirect to register.php
@@ -47,10 +48,12 @@ if (isset($_POST['register-submit'])) {
                     exit();
                 } else {
 
-                    //Hash Password
-                    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+                    //Salt and Hash Password
+                    $salt = CreateSalt(10);
+                    $saltedPassword = $salt.$password;
+                    $passwordHash = Md5($saltedPassword);
 
-                    mysqli_stmt_bind_param($stmt, "ss", $username, $passwordHash);
+                    mysqli_stmt_bind_param($stmt, "sss", $username, $passwordHash, $salt);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
                     header("Location: ../sadproject/register.php?registration=success");

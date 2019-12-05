@@ -2,7 +2,7 @@
 require "header.php";
 require "dbh.php";
 
-if (!isset($_SESSION['id']) && $_SESSION['username'] != 'ADMIN') {
+if (!isset($_SESSION['id']) || $_SESSION['username'] != 'ADMIN') {
 	header("Location: ../sadproject/main_page.php?error=UnauthorisedAccessAdminOnly");
 }
 

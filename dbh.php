@@ -23,7 +23,8 @@ mysqli_select_db($conn, $databasename);
 $table_sql = "CREATE TABLE IF NOT EXISTS users (
 	`id` int(11) NOT NULL auto_increment,         
 	`username` varchar(30)  NOT NULL default '',    
-	`password` varchar(256)  NOT NULL default '', 
+	`password` varchar(256)  NOT NULL default '',
+	`salt` varchar(256)  NOT NULL default '',
 
 	 PRIMARY KEY  (`id`)
   )";

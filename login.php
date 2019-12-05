@@ -1,11 +1,11 @@
 <?php
 require "header.php";
 require "dbh.php";
+include "salt_function.php";
 
 //Create ADMIN user if none exists
 $adminUsername = "ADMIN";
 $adminPassword = "SAD_2019!";
-$passwordHash = password_hash($adminPassword, PASSWORD_DEFAULT);
 
 //Check if ADMIN already exists in db
 $sql = "SELECT username FROM users WHERE username=?";
@@ -25,7 +25,8 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 	}
 	//Else, register user
 	else {
-		$sql = "INSERT INTO users(username, password) VALUES (?, ?)";
+
+		$sql = "INSERT INTO users(username, password, salt) VALUES (?, ?, ?)";
 		$stmt = mysqli_stmt_init($conn);
 
 		//If registration fails, redirect to home.php
@@ -33,10 +34,15 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 			//header("Location: ../sadproject/home.php?error=sqlerror2");
 
 		} else {
-			mysqli_stmt_bind_param($stmt, "ss", $adminUsername, $passwordHash);
+
+			//Salt and Hash Password
+			$adminSalt = CreateSalt(10);
+			$adminSaltedPassword = $adminSalt.$adminPassword;
+			$passwordHash = md5($adminSaltedPassword);
+			mysqli_stmt_bind_param($stmt, "sss", $adminUsername, $passwordHash, $adminSalt);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_store_result($stmt);
-			echo "--ADMIN user created--";
+			echo "--ADMIN user created-- $passwordHash";
 		}
 	}
 }

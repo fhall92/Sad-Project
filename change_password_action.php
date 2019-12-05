@@ -1,5 +1,6 @@
 <?php
 require "header.php";
+include "salt_function.php";
 
 //If user has accessed register_action.php via submit button on register.php
 if (isset($_GET['change-password-submit'])) {
@@ -12,8 +13,6 @@ if (isset($_GET['change-password-submit'])) {
     $username = $_SESSION['username'];
     $oldPassword = $_GET['oldPassword'];
     $newPassword = $_GET['newPassword'];
-    //Hash Password
-    $passwordHash = password_hash($newPassword, PASSWORD_DEFAULT);
 
 
     //IF Old username & password combination are valid
@@ -39,8 +38,18 @@ if (isset($_GET['change-password-submit'])) {
             //If $result holds a value
             if ($row = mysqli_fetch_assoc($result)) {
 
+                //Salt and Hash Old Password
+                $salt = $row['salt'];
+                $saltedPassword = $salt . $oldPassword;
+                $passwordHash = Md5($saltedPassword);
+
+                
                 //If Passwords don't match
-                $passwordCheck = password_verify($oldPassword, $row['password']);
+                if ($passwordHash == $row['password']) {
+                    $passwordCheck = true;
+                } else {
+                    $passwordCheck = false;
+                }
                 if ($passwordCheck == false) {
 
                     echo "<script>
@@ -58,7 +67,9 @@ if (isset($_GET['change-password-submit'])) {
                         exit();
                     } else {
 
-                        mysqli_stmt_bind_param($stmt, "ss", $passwordHash, $username);
+                        $saltedNewPassword = $salt.$newPassword;
+                        $newPasswordHash = md5($saltedNewPassword);
+                        mysqli_stmt_bind_param($stmt, "ss", $newPasswordHash, $username);
                         mysqli_stmt_execute($stmt);
                         mysqli_stmt_store_result($stmt);
 
@@ -73,7 +84,7 @@ if (isset($_GET['change-password-submit'])) {
             //if $result is empty
             else {
                 echo "<script>
-                alert ('The username ' + '$usernameSanitize' + 
+                alert ('The username ' + '$username' + 
                         ' and password combination cannot be authorised');
                 window.location.href = 'login.php';
                 </script>";
