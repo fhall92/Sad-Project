@@ -1,6 +1,7 @@
 <?php
 require "header.php";
 include "salt_function.php";
+include "sanitise_function.php";
 
 //If user has accessed register_action.php via submit button on register.php
 if (isset($_POST['register-submit'])) {
@@ -13,7 +14,7 @@ if (isset($_POST['register-submit'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $passwordConfirm = $_POST['passwordConfirm'];
-
+    $username = Sanitise($username);
     //--------Error Handling--------
     //Empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
     if (empty($username) || empty($password) || empty($passwordConfirm)) {
@@ -50,7 +51,7 @@ if (isset($_POST['register-submit'])) {
 
                     //Salt and Hash Password
                     $salt = CreateSalt(10);
-                    $saltedPassword = $salt.$password;
+                    $saltedPassword = $salt . $password;
                     $passwordHash = Md5($saltedPassword);
 
                     mysqli_stmt_bind_param($stmt, "sss", $username, $passwordHash, $salt);

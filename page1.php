@@ -6,10 +6,6 @@ if (!isset($_SESSION['id'])) {
 	header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
 }
 
-echo 'Page 1\n';
-echo $_SESSION['id'];
-echo $_SESSION['username'];
-
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +19,19 @@ echo $_SESSION['username'];
 	<div class="navbar">
 		<ul>
 			<li><a href="logout.php"> Logout </a></li>
-			<li><a href="page1.php"> page1 </a></li>
-			<li><a href="page2.php"> page2 </a></li>
+			<li><a href="page1.php"> Page 1 </a></li>
+			<li><a href="page2.php"> Page 2 </a></li>
 			<li><a href="change_password.php"> Change Password </a></li>
 			<li><a href="log.php"> LOG </a></li>
 		</ul>
 	</div>
+
+
+	<center>
+		<h1>Page 1</h1><br><br>
+			<h2>This is a page that only an authenticated
+			user should be able to view.</h2>
+	</center>
 </body>
 
 </html>

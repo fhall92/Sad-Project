@@ -1,5 +1,6 @@
 <?php
 require "header.php";
+include "sanitise_function.php";
 
 //Ensure user accessed page by clicking submit button on login.php
 if (isset($_POST['login-submit'])) {
@@ -16,6 +17,7 @@ if (isset($_POST['login-submit'])) {
 	$userAgent = $_SERVER['HTTP_USER_AGENT'];
 	$stmt = mysqli_stmt_init($conn);
 	$currentTime = time();
+	$username = Sanitise($username);
 
 	if (($currentTime - $_SESSION['lockoutTime']) < 180 && $_SESSION['lockout'] == true) {
 		echo "<script>
@@ -44,19 +46,18 @@ if (isset($_POST['login-submit'])) {
 
 					//If Passwords don't match
 					$salt = $row['salt'];
-					
-					$saltedPassword = $salt.$password;
-                    $passwordHash = Md5($saltedPassword);
+
+					$saltedPassword = $salt . $password;
+					$passwordHash = Md5($saltedPassword);
 
 					//header("Location: ../sadproject/home.php?$salt");
 
-					if($passwordHash == $row['password']){
+					if ($passwordHash == $row['password']) {
 						$passwordCheck = true;
-					}
-					else{
+					} else {
 						$passwordCheck = false;
 					}
-					
+
 					if ($passwordCheck == false) {
 
 						//Store and Check Login Attempts

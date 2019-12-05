@@ -37,7 +37,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 			//Salt and Hash Password
 			$adminSalt = CreateSalt(10);
-			$adminSaltedPassword = $adminSalt.$adminPassword;
+			$adminSaltedPassword = $adminSalt . $adminPassword;
 			$passwordHash = md5($adminSaltedPassword);
 			mysqli_stmt_bind_param($stmt, "sss", $adminUsername, $passwordHash, $adminSalt);
 			mysqli_stmt_execute($stmt);

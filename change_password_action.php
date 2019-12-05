@@ -13,6 +13,15 @@ if (isset($_GET['change-password-submit'])) {
     $username = $_SESSION['username'];
     $oldPassword = $_GET['oldPassword'];
     $newPassword = $_GET['newPassword'];
+    $csrfToken = $_GET['csrfToken'];
+    echo $csrfToken;
+
+    if (!$SESSION['csrfToken']  == $csrfToken) {
+        session_unset();
+        session_destroy();
+        header("Location: ../sadproject/home.php?error=WrongCSRFToken");
+        exit();
+    }
 
 
     //IF Old username & password combination are valid
@@ -43,7 +52,7 @@ if (isset($_GET['change-password-submit'])) {
                 $saltedPassword = $salt . $oldPassword;
                 $passwordHash = Md5($saltedPassword);
 
-                
+
                 //If Passwords don't match
                 if ($passwordHash == $row['password']) {
                     $passwordCheck = true;
@@ -67,7 +76,7 @@ if (isset($_GET['change-password-submit'])) {
                         exit();
                     } else {
 
-                        $saltedNewPassword = $salt.$newPassword;
+                        $saltedNewPassword = $salt . $newPassword;
                         $newPasswordHash = md5($saltedNewPassword);
                         mysqli_stmt_bind_param($stmt, "ss", $newPasswordHash, $username);
                         mysqli_stmt_execute($stmt);

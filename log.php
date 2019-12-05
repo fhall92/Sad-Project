@@ -31,14 +31,13 @@ if (!isset($_SESSION['id']) || $_SESSION['username'] != 'ADMIN') {
 		</h1>
 	</div>
 	<div>
-		<table border="1">
+		<table id="log" style="width:100%" border="2">
 			<tr>
 				<th>Id</th>
 				<th>Username</th>
 				<th>IP</th>
 				<th>Timestamp</th>
 				<th>isSuccess</th>
-
 			</tr>
 			<?php
 
@@ -51,7 +50,8 @@ if (!isset($_SESSION['id']) || $_SESSION['username'] != 'ADMIN') {
 			if ($result->num_rows > 0) {
 				// output data of each row
 				while ($row = $result->fetch_assoc()) {
-					echo "<tr><td>" . $row["id"] . "</td><td>". $row["username"]."</td><td>". $row["ip"]  . "</td><td>". $row["timestamp"]. "</td><td>". $row["isSuccess"]  ."</tr>";
+					echo "<tr><td>" . $row["id"] . "</td><td>" . $row["username"] . "</td><td>" . $row["ip"]  .
+						"</td><td>" . $row["timestamp"] . "</td><td>" . $row["isSuccess"]  . "</tr>";
 				}
 				echo "</table>";
 			} else {

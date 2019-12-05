@@ -4,6 +4,13 @@ require "header.php";
 if (!isset($_SESSION['id'])) {
 	header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
 }
+
+
+//CSRF Protection
+$csrfToken = uniqid(mt_rand());
+$_SESSION['csrfToken'] = $csrfToken;
+echo $csrfToken;
+
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +39,7 @@ if (!isset($_SESSION['id'])) {
 		<form onsubmit="return validatePassword()" action="change_password_action.php" method="get">
 
 			<div class="container">
+				<input type="hidden" name="token" value="<?php $csrfToken ?>">
 				<label for="oPsw"><b>Old Password</b></label>
 				<input type="password" placeholder="Enter Old Password" name="oldPassword" onkeypress="validatePassword();" id="oldPassword" required>
 
