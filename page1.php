@@ -3,7 +3,7 @@
 require 'header.php';
 
 if (!isset($_SESSION['id'])) {
-	header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
+	header("Location: home.php?error=UnauthorisedAccess");
 }
 
 ?>

@@ -2,14 +2,13 @@
 require "header.php";
 
 if (!isset($_SESSION['id'])) {
-	header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
+	header("Location: home.php?error=UnauthorisedAccess");
 }
 
 
 //CSRF Protection
 $csrfToken = uniqid(mt_rand());
 $_SESSION['csrfToken'] = $csrfToken;
-echo $csrfToken;
 
 ?>
 
@@ -24,8 +23,8 @@ echo $csrfToken;
 	<div class="navbar">
 		<ul>
 			<li><a href="logout.php"> Logout </a></li>
-			<li><a href="page1.php"> page1 </a></li>
-			<li><a href="page2.php"> page2 </a></li>
+			<li><a href="page1.php" > Page 1 </a></li>
+			<li><a href="page2.php" > Page 2 </a></li>
 			<li><a href="change_password.php"> Change Password </a></li>
 			<li><a href="log.php"> LOG </a></li>
 		</ul>

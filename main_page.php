@@ -14,8 +14,8 @@ require "header.php";
 		<ul>
 			<ul>
 				<li><a href="logout.php"> Logout </a></li>
-				<li><a href="page1.php"> page1 </a></li>
-				<li><a href="page2.php"> page2 </a></li>
+				<li><a href="page1.php" > Page 1 </a></li>
+				<li><a href="page2.php" > Page 2 </a></li>
 				<li><a href="change_password.php"> Change Password </a></li>
 				<li><a href="log.php"> LOG </a></li>
 			</ul>
@@ -40,7 +40,7 @@ require "header.php";
 					echo 'Welcome ' . $_SESSION['username'] . '<br>';
 					echo 'YOU ARE LOGGED IN<br>';
 				} else {
-					header("Location: ../sadproject/home.php?error=UnauthorisedAccess");
+					header("Location: home.php?error=UnauthorisedAccess");
 				}
 				?>
 		</h2>

@@ -16,9 +16,9 @@ if (isset($_POST['register-submit'])) {
     $passwordConfirm = $_POST['passwordConfirm'];
     $username = Sanitise($username);
     //--------Error Handling--------
-    //Empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
+    //Empty forms
     if (empty($username) || empty($password) || empty($passwordConfirm)) {
-        header("Location: ../sadproject/register.php?error=emptyfields");
+        header("Location: register.php?error=emptyfields");
         exit();
     } else {
         //Check if user already exists in db
@@ -26,7 +26,7 @@ if (isset($_POST['register-submit'])) {
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../sadproject/register.php?error=sqlerror1");
+            header("Location: register.php?error=sqlerror1");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, "s", $username);
@@ -35,7 +35,7 @@ if (isset($_POST['register-submit'])) {
             $resultCheck = mysqli_stmt_num_rows($stmt);
 
             if ($resultCheck > 0) {
-                header("Location: ../sadproject/register.php?error=useralreadyexists");
+                header("Location: register.php?error=useralreadyexists");
                 exit();
             }
             //Else, register user
@@ -45,7 +45,7 @@ if (isset($_POST['register-submit'])) {
 
                 //If registration fails, redirect to register.php
                 if (!mysqli_stmt_prepare($stmt, $sql)) {
-                    header("Location: ../sadproject/register.php?error=sqlerror2");
+                    header("Location: register.php?error=sqlerror2");
                     exit();
                 } else {
 
@@ -57,7 +57,7 @@ if (isset($_POST['register-submit'])) {
                     mysqli_stmt_bind_param($stmt, "sss", $username, $passwordHash, $salt);
                     mysqli_stmt_execute($stmt);
                     mysqli_stmt_store_result($stmt);
-                    header("Location: ../sadproject/register.php?registration=success");
+                    header("Location: register.php?registration=success");
                     exit();
                 }
             }
@@ -70,6 +70,6 @@ if (isset($_POST['register-submit'])) {
 
 //If user accesses page from outside of register.php, redirect to register.php
 else {
-    header("Location: ../sadproject/register.php");
+    header("Location: register.php");
     exit();
 }

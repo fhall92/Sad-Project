@@ -19,7 +19,7 @@ if (isset($_GET['change-password-submit'])) {
     if (!$SESSION['csrfToken']  == $csrfToken) {
         session_unset();
         session_destroy();
-        header("Location: ../sadproject/home.php?error=WrongCSRFToken");
+        header("Location: home.php?error=WrongCSRFToken");
         exit();
     }
 
@@ -30,14 +30,14 @@ if (isset($_GET['change-password-submit'])) {
     //--------Error Handling--------
     //Empty forms 
     if (empty($oldPassword) || empty($newPassword)) {
-        header("Location: ../sadproject/home.php?error=emptyfields");
+        header("Location: home.php?error=emptyfields");
         exit();
     } else {
         $sql = "SELECT * FROM users WHERE username=?";
         $stmt = mysqli_stmt_init($conn);
 
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            header("Location: ../sadproject/login.php?error=sqlerror1");
+            header("Location: login.php?error=sqlerror1");
             exit();
         } else {
             mysqli_stmt_bind_param($stmt, "s", $username);
@@ -72,7 +72,7 @@ if (isset($_GET['change-password-submit'])) {
 
                     //If sql fail
                     if (!mysqli_stmt_prepare($stmt, $sql)) {
-                        header("Location: ../sadproject/change_password.php?error=sqlerror2");
+                        header("Location: change_password.php?error=sqlerror2");
                         exit();
                     } else {
 
@@ -84,7 +84,7 @@ if (isset($_GET['change-password-submit'])) {
 
                         session_unset();
                         session_destroy();
-                        header("Location: ../sadproject/home.php");
+                        header("Location: home.php");
                         exit();
                     }
                 }
@@ -107,6 +107,6 @@ if (isset($_GET['change-password-submit'])) {
 
 //If user accesses page from outside of change_password.php, redirect to home.php
 else {
-    header("Location: ../sadproject/home.php");
+    header("Location: home.php");
     exit();
 }

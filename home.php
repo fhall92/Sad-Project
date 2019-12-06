@@ -32,7 +32,7 @@ require "dbh.php";
 				<?php
 				//If user is already logged in, redirect to main_page
 				if (isset($_SESSION['id'])) {
-					header("Location: ../sadproject/main_page.php");
+					header("Location: main_page.php");
 				} else {
 					echo 'YOU ARE CURRENTLY LOGGED OUT<br>';
 					echo 'PLEASE REGISTER OR LOGIN ABOVE<br>';
