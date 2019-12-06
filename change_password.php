@@ -23,8 +23,8 @@ $_SESSION['csrfToken'] = $csrfToken;
 	<div class="navbar">
 		<ul>
 			<li><a href="logout.php"> Logout </a></li>
-			<li><a href="page1.php" > Page 1 </a></li>
-			<li><a href="page2.php" > Page 2 </a></li>
+			<li><a href="page1.php"> Page 1 </a></li>
+			<li><a href="page2.php"> Page 2 </a></li>
 			<li><a href="change_password.php"> Change Password </a></li>
 			<li><a href="log.php"> LOG </a></li>
 		</ul>
@@ -38,7 +38,7 @@ $_SESSION['csrfToken'] = $csrfToken;
 		<form onsubmit="return validatePassword()" action="change_password_action.php" method="get">
 
 			<div class="container">
-				<input type="hidden" name="token" value="<?php $csrfToken ?>">
+				<input type="hidden" name="csrfToken" value="<?php echo $csrfToken ?>">
 				<label for="oPsw"><b>Old Password</b></label>
 				<input type="password" placeholder="Enter Old Password" name="oldPassword" onkeypress="validatePassword();" id="oldPassword" required>
 
@@ -47,6 +47,12 @@ $_SESSION['csrfToken'] = $csrfToken;
 
 				<label for="pswConfirm"><b>Confirm New Password</b></label>
 				<input type="password" placeholder="Confirm New Password" name="passwordConfirm" onkeypress="validatePassword();" id="passwordConfirm" required>
+
+				<?php
+				if (isset($_SESSION['oldPasswordWrong']) && $_SESSION['oldPasswordWrong'] == true) {
+					echo 'Old Password is incorrect.';
+				}
+				?>
 
 				<button type="submit" name="change-password-submit">Change Password</button>
 

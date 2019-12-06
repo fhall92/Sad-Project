@@ -19,8 +19,8 @@ if (!isset($_SESSION['id']) || $_SESSION['username'] != 'ADMIN') {
 	<div class="navbar">
 		<ul>
 			<li><a href="logout.php"> Logout </a></li>
-			<li><a href="page1.php" > Page 1 </a></li>
-			<li><a href="page2.php" > Page 2 </a></li>
+			<li><a href="page1.php"> Page 1 </a></li>
+			<li><a href="page2.php"> Page 2 </a></li>
 			<li><a href="change_password.php"> Change Password </a></li>
 			<li><a href="log.php"> LOG </a></li>
 		</ul>

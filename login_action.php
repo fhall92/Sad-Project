@@ -2,6 +2,8 @@
 require "header.php";
 include "sanitise_function.php";
 
+unset($_SESSION['attemptName']);
+
 //Ensure user accessed page by clicking submit button on login.php
 if (isset($_POST['login-submit'])) {
 
@@ -20,21 +22,18 @@ if (isset($_POST['login-submit'])) {
 	$username = Sanitise($username);
 
 	if (($currentTime - $_SESSION['lockoutTime']) < 180 && $_SESSION['lockout'] == true) {
-		echo "<script>
-						alert ('You are within Lockout timeframe. Please try again later.');
-								window.location.href = 'login.php?error=LockedOut';
-								</script>";
+		header("Location: login.php?error=LockedOut");
 	} else {
 		$_SESSION['lockout'] = false;
 		//Check for empty forms **POSSIBLE USELESS MIGHT DELETE LATER IDK**
 		if (empty($username) || empty($password)) {
-			header("Location: ../sadproject/login.php?error=emptyfields");
+			header("Location: login.php?error=emptyfields");
 			exit();
 		} else {
 			$sql = "SELECT * FROM users WHERE username=?";
 
 			if (!mysqli_stmt_prepare($stmt, $sql)) {
-				header("Location: ../sadproject/login.php?error=sqlerror1");
+				header("Location: login.php?error=sqlerror1");
 				exit();
 			} else {
 				mysqli_stmt_bind_param($stmt, "s", $username);
@@ -50,7 +49,7 @@ if (isset($_POST['login-submit'])) {
 					$saltedPassword = $salt . $password;
 					$passwordHash = Md5($saltedPassword);
 
-					//header("Location: ../sadproject/home.php?$salt");
+					//header("Location: home.php?$salt");
 
 					if ($passwordHash == $row['password']) {
 						$passwordCheck = true;
@@ -80,10 +79,8 @@ if (isset($_POST['login-submit'])) {
 							$_SESSION['lockout'] = true;
 							$_SESSION['lockoutTime'] = time();
 
-							echo "<script>
-						alert ('You are locked out.');
-								window.location.href = 'login.php?error=LockedOut';
-								</script>";
+							header("Location: login.php?error=LockedOut");
+
 						}
 
 						//Else, if user is not Locked out
@@ -93,11 +90,8 @@ if (isset($_POST['login-submit'])) {
 							}
 						}
 
-						echo "<script>
-						alert ('The username ' + '$username' + 
-						' and password combination cannot be authorised. You have ' + '$attemptsRemaining' + ' attempts remaining.');
-								window.location.href = 'login.php?error=NotAuthorised';
-								</script>";
+						$_SESSION['attemptName'] = $username;
+						header("Location: login.php?error=InvalidLogin");
 					} else {
 						//Create Session
 						session_start();
@@ -112,7 +106,7 @@ if (isset($_POST['login-submit'])) {
 							mysqli_stmt_execute($stmt);
 						}
 
-						header("Location: ../sadproject/main_page.php?login=success");
+						header("Location: main_page.php?login=success");
 					}
 				} else {
 
@@ -136,10 +130,8 @@ if (isset($_POST['login-submit'])) {
 						$_SESSION['lockout'] = true;
 						$_SESSION['lockoutTime'] = time();
 
-						echo "<script>
-							alert ('You are locked out.');
-							window.location.href = 'login.php?error=LockedOut';
-							</script>";
+						$_SESSION['attemptName'] = $username;
+						header("Location: login.php?error=InvalidLogin");
 					}
 
 					//Else, if user is not Locked out
@@ -149,11 +141,8 @@ if (isset($_POST['login-submit'])) {
 						}
 					}
 
-					echo "<script>
-						alert ('The username ' + '$username' + 
-								' and password combination cannot be authorised. You have ' + '$attemptsRemaining' + ' attempts remaining.');
-								window.location.href = 'login.php';
-								</script>";
+					$_SESSION['attemptName'] = $username;
+						header("Location: login.php?error=InvalidLogin");
 				}
 			}
 		}
@@ -162,6 +151,6 @@ if (isset($_POST['login-submit'])) {
 
 //If user has accessed page without clicking submit on login.php
 else {
-	header("Location: ../sadproject/login.php?error=UnauthorisedAccess");
+	header("Location: login.php?error=UnauthorisedAccess");
 	exit();
 }

@@ -12,7 +12,7 @@ $sql = "SELECT username FROM users WHERE username=?";
 $stmt = mysqli_stmt_init($conn);
 
 if (!mysqli_stmt_prepare($stmt, $sql)) {
-	//header("Location: ../sadproject/home.php?error=sqlerror1");
+	header("Location: home.php?error=sqlerror1");
 	exit();
 } else {
 	mysqli_stmt_bind_param($stmt, "s", $adminUsername);
@@ -31,10 +31,8 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 		//If registration fails, redirect to home.php
 		if (!mysqli_stmt_prepare($stmt, $sql)) {
-			//header("Location: ../sadproject/home.php?error=sqlerror2");
-
+			header("Location: home.php?error=sqlerror2");
 		} else {
-
 			//Salt and Hash Password
 			$adminSalt = CreateSalt(10);
 			$adminSaltedPassword = $adminSalt . $adminPassword;
@@ -42,7 +40,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 			mysqli_stmt_bind_param($stmt, "sss", $adminUsername, $passwordHash, $adminSalt);
 			mysqli_stmt_execute($stmt);
 			mysqli_stmt_store_result($stmt);
-			echo "--ADMIN user created-- $passwordHash";
+			echo "--ADMIN user created--";
 		}
 	}
 }
@@ -51,7 +49,7 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 
 //If user is already logged in, redirect to main_page
 if (isset($_SESSION['id'])) {
-	header("Location: ../sadproject/main_page.php");
+	header("Location: main_page.php");
 }
 ?>
 
@@ -85,6 +83,18 @@ if (isset($_SESSION['id'])) {
 
 			<label for="psw"><b>Password</b></label>
 			<input type="password" placeholder="Enter Password" name="password" required>
+			<?php
+			if (isset($_SESSION['attemptName'])) {
+				echo $_SESSION['attemptName'] . ' and password combination cannot be authorised.<br>';
+				if ((5 - $_SESSION['count'][0]) >= 0) {
+					echo 'You have ' . (5 - $_SESSION['count'][0]) . ' attempts remaining<br>';
+				}
+			}
+
+			if (ISSET($_SESSION['lockout']) && $_SESSION['lockout'] == true) {
+				echo 'You are currently locked out.<br>';
+			}
+			?>
 
 			<button type="submit" name="login-submit">Login</button>
 

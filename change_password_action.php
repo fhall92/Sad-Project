@@ -14,9 +14,8 @@ if (isset($_GET['change-password-submit'])) {
     $oldPassword = $_GET['oldPassword'];
     $newPassword = $_GET['newPassword'];
     $csrfToken = $_GET['csrfToken'];
-    echo $csrfToken;
 
-    if (!$SESSION['csrfToken']  == $csrfToken) {
+    if (!$_SESSION['csrfToken']  == $csrfToken) {
         session_unset();
         session_destroy();
         header("Location: home.php?error=WrongCSRFToken");
@@ -60,11 +59,8 @@ if (isset($_GET['change-password-submit'])) {
                     $passwordCheck = false;
                 }
                 if ($passwordCheck == false) {
-
-                    echo "<script>
-                    alert ('Old Password is incorrect');
-                    window.location.href = 'change_password.php';
-                            </script>";
+                    $_SESSION['oldPasswordWrong'] = true;
+                    header("Location: change_password.php?error=InvalidPasswordChange");
                 } else {
                     //Register new Password, Kill session, redirect to login
                     $sql = "UPDATE users SET password=? WHERE username=?";
@@ -92,14 +88,9 @@ if (isset($_GET['change-password-submit'])) {
 
             //if $result is empty
             else {
-                echo "<script>
-                alert ('The username ' + '$username' + 
-                        ' and password combination cannot be authorised');
-                window.location.href = 'login.php';
-                </script>";
-
-
-                //exit();
+                session_unset();
+                session_destroy();
+                header("Location: change_password.php?error=UserNotExists");
             }
         }
     }
