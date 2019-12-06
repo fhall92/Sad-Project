@@ -20,9 +20,9 @@ if (!mysqli_stmt_prepare($stmt, $sql)) {
 	mysqli_stmt_store_result($stmt);
 	$resultCheck = mysqli_stmt_num_rows($stmt);
 
-	if ($resultCheck > 0) {
-		echo "--ADMIN user already exists--";
-	}
+	//if resultCheck > 0, Admin already exists
+	if ($resultCheck > 0) { }
+
 	//Else, register user
 	else {
 
@@ -91,7 +91,7 @@ if (isset($_SESSION['id'])) {
 				}
 			}
 
-			if (ISSET($_SESSION['lockout']) && $_SESSION['lockout'] == true) {
+			if (isset($_SESSION['lockout']) && $_SESSION['lockout'] == true) {
 				echo 'You are currently locked out.<br>';
 			}
 			?>
